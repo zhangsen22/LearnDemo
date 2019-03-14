@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityA"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_bindService"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:text="bindService"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_unbindService"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:text="unbindService"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_start_activityB"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:text="start ActivityB"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_finish"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:text="Finish"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
+
+</LinearLayout>

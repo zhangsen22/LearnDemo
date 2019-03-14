@@ -37,6 +37,33 @@
             android:gravity="center"
             android:layout_marginBottom="5dp"/>
 
+        <TextView
+            android:id="@+id/tv_startService"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorAccent"
+            android:text="startService"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_stopService"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorAccent"
+            android:text="stopService"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_start_activityA"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorAccent"
+            android:text="go ActivityA  测试bindService "
+            android:gravity="center"
+            android:layout_marginBottom="5dp"/>
+
     </LinearLayout>
 
 </ScrollView>

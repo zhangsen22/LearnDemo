@@ -23,16 +23,25 @@ public class MainActivity extends AppCompatActivity {
     TextView tvVolatile;
     @BindView(R.id.tv_ANR)
     TextView tvANR;
+    @BindView(R.id.tv_startService)
+    TextView tvStartService;
+    @BindView(R.id.tv_stopService)
+    TextView tvStopService;
+    @BindView(R.id.tv_start_activityA)
+    TextView tvStartActivityA;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        intent = new Intent(this, ANRService.class);
     }
 
-    @OnClick({R.id.tv_intentservice, R.id.tv_volatile,R.id.tv_ANR})
+    @OnClick({R.id.tv_intentservice, R.id.tv_volatile, R.id.tv_ANR, R.id.tv_startService, R.id.tv_stopService,R.id.tv_start_activityA})
     public void onViewClicked(View view) {
+
         switch (view.getId()) {
             case R.id.tv_intentservice:
                 startIntentService();
@@ -41,14 +50,23 @@ public class MainActivity extends AppCompatActivity {
                 openVolatile();
                 break;
             case R.id.tv_ANR:
-                Intent anrIntent = new Intent(this,ANRService.class);
+                Intent anrIntent = new Intent(this, ANRService.class);
                 startService(anrIntent);
                 try {
                     Thread.sleep(10000l);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(MainActivity.this,"点我你就发了", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "点我你就发了", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_startService:
+                startService(intent);
+                break;
+            case R.id.tv_stopService:
+                stopService(intent);
+                break;
+            case R.id.tv_start_activityA:
+                startActivity(new Intent(this,ActivityA.class));
                 break;
         }
     }
