@@ -140,7 +140,7 @@ public class ANRService extends Service {
         @Override
         public void run() {
             mTick = (mTick + 1) % 10;
-//            Log.d(TAG, "mTick is   " + mTick);
+            Log.d(TAG, "mTick is   " + mTick);
         }
     };
 

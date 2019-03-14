@@ -1,5 +1,6 @@
 package lucky.zone.com;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,14 +8,18 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import lucky.zone.com.services.ANRService;
 import lucky.zone.com.services.MIntentService;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     public volatile String string;
 
     @BindView(R.id.tv_intentservice)
@@ -37,9 +42,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         intent = new Intent(this, ANRService.class);
+        //动态换取权限
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        Logger.d(TAG,"aBoolean  is  "+aBoolean);
+                        if (aBoolean) {
+
+                        } else {
+                            finish();
+                        }
+                    }
+                });
     }
 
-    @OnClick({R.id.tv_intentservice, R.id.tv_volatile, R.id.tv_ANR, R.id.tv_startService, R.id.tv_stopService,R.id.tv_start_activityA})
+    @OnClick({R.id.tv_intentservice, R.id.tv_volatile, R.id.tv_ANR, R.id.tv_startService, R.id.tv_stopService, R.id.tv_start_activityA})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
@@ -52,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.tv_ANR:
                 Intent anrIntent = new Intent(this, ANRService.class);
                 startService(anrIntent);
-                try {
-                    Thread.sleep(10000l);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(MainActivity.this, "点我你就发了", Toast.LENGTH_SHORT).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "点我你就发了", Toast.LENGTH_SHORT).show();
+                    }
+                }).start();
                 break;
             case R.id.tv_startService:
                 startService(intent);
@@ -66,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 stopService(intent);
                 break;
             case R.id.tv_start_activityA:
-                startActivity(new Intent(this,ActivityA.class));
+                startActivity(new Intent(this, ActivityA.class));
                 break;
         }
     }
